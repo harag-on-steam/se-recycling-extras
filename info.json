@@ -1,0 +1,17 @@
+{
+    "name": "se-recycling-extras",
+    "version": "0.1.0",
+    "title": "Space Exploration Recycling Extras",
+    "description": "Break down some items into their components: long space pipes, AAI containers",
+    "author": "Harag",
+    "contact": "none",
+    "factorio_version": "1.1",
+    "dependencies": [
+        "base",
+        "space-exploration",
+        "? aai-containers"
+    ],
+    "package": {
+        "ignore": [".git", ".github", ".vscode", ".kakrc", "*.xcf", "*.kra"]
+    }
+}
