@@ -2,7 +2,7 @@
     "name": "se-recycling-extras",
     "version": "0.1.0",
     "title": "Space Exploration Recycling Extras",
-    "description": "Break down some items into their components: long space pipes, AAI containers",
+    "description": "Break down some items into their original components: long space pipes, AAI containers, AFH underground pipes",
     "author": "Harag",
     "contact": "none",
     "factorio_version": "1.1",
@@ -11,7 +11,7 @@
         "space-exploration",
         "? aai-containers",
         "? underground-pipe-pack",
-        "(?) fluid-handling-simplified"
+        "(?) underground-pipe-pack-simplified"
     ],
     "package": {
         "ignore": [".git", ".github", ".vscode", ".kakrc", "*.xcf", "*.kra"]
