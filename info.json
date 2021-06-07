@@ -9,7 +9,9 @@
     "dependencies": [
         "base",
         "space-exploration",
-        "? aai-containers"
+        "? aai-containers",
+        "? underground-pipe-pack",
+        "(?) fluid-handling-simplified"
     ],
     "package": {
         "ignore": [".git", ".github", ".vscode", ".kakrc", "*.xcf", "*.kra"]

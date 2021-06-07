@@ -1,5 +1,5 @@
 if (mods and not mods["aai-containers"]) or (game and not game.active_mods["aai-containers"]) then
-	return function() end -- do nothing
+	return function() end -- mod not enabled, do nothing
 end
 
 local logistic_variants = {
