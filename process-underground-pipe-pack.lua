@@ -1,4 +1,5 @@
-if (mods and not mods["underground-pipe-pack"]) or (game and not game.active_mods["underground-pipe-pack"]) then
+local mod_active = (mods and mods["underground-pipe-pack"]) or (game and game.active_mods["underground-pipe-pack"])
+if not mod_active then
 	return function() end -- mod not enabled, do nothing
 end
 
