@@ -3,6 +3,7 @@ local recipes_providers = { -- an array of function(consumer_function(recipe_inf
     require("process-aai-containers"),
     require("process-space-pipes"),
     require("process-underground-pipe-pack"),
+	require("process-intermediate-bulk-containers"),
 }
 
 local percentage = settings.startup["se-recycling-percentage"].value / 100.0

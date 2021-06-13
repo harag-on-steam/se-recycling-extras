@@ -1,6 +1,6 @@
 {
     "name": "se-recycling-extras",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "title": "Space Exploration Recycling Extras",
     "description": "Break down some items into their original components: long space pipes, AAI containers, AFH underground pipes",
     "author": "Harag",
@@ -10,6 +10,7 @@
         "base",
         "space-exploration",
         "? aai-containers",
+        "? intermediate-bulk-containers",
         "? underground-pipe-pack",
         "(?) underground-pipe-pack-simplified"
     ],

@@ -3,6 +3,7 @@ local recipes_providers = { -- an array of function(consumer_function(recipe_inf
 	require("process-aai-containers"),
     require("process-space-pipes"),
     require("process-underground-pipe-pack"),
+	require("process-intermediate-bulk-containers"),
 }
 
 local function sync_recipe_with_research(recipe_info)
