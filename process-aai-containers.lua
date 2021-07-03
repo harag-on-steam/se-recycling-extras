@@ -1,5 +1,4 @@
-local mod_active = (mods and mods["aai-containers"]) or (game and game.active_mods["aai-containers"])
-if not mod_active then
+if not is_mod_active("aai-containers") then
 	return function() end -- mod not enabled, do nothing
 end
 

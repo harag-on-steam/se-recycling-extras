@@ -1,5 +1,4 @@
-local mod_active = (mods and mods["intermediate-bulk-containers"]) or (game and game.active_mods["intermediate-bulk-containers"])
-if not mod_active then
+if not is_mod_active("intermediate-bulk-containers") then
 	return function() end -- mod not enabled, do nothing
 end
 
