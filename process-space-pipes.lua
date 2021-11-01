@@ -1,3 +1,5 @@
+local recipe_infos = {}
+
 local long_pipes = {
 	["se-space-pipe-long-j-3" ] = "",
 	["se-space-pipe-long-j-5" ] = "",
@@ -6,10 +8,32 @@ local long_pipes = {
 	["se-space-pipe-long-s-15"] = "",
 }
 
-local recipe_infos = {}
+local belt_colors = {
+	"blue",
+	"cyan",
+	"green",
+	"magenta",
+	"red",
+	"white",
+	"yellow",
+}
 
-local function is_space_pipe(type, name)
-	return type == "item" and name == "se-space-pipe"
+local transport_entities = {
+	["underground-belt"] = "underground-belt",
+	["transport-belt"]   = "transport-belt",
+	["splitter"]         = "splitter",
+}
+
+local always_recover = {
+	["se-space-pipe"] = true,
+	["se-deep-space-underground-belt-black"] = true,
+	["se-deep-space-transport-belt-black"] = true,
+	["se-deep-space-transport-belt-loader-black"] = true,
+	["se-deep-space-splitter-black"] = true,
+}
+
+local function is_base_entity(type, name)
+	return type == "item" and always_recover[name] and true
 end
 
 for name, localized_name in pairs(long_pipes) do
@@ -17,8 +41,19 @@ for name, localized_name in pairs(long_pipes) do
 		recipe_name = name,
 		entity_type = "storage-tank", -- yes, not "pipe"
 		technology_name = "se-space-platform-scaffold",
-		no_percentage_test = is_space_pipe,
+		no_percentage_test = is_base_entity,
 	})
+end
+
+for _, color in pairs(belt_colors) do
+	for name, type in pairs(transport_entities) do
+		table.insert(recipe_infos, {
+			recipe_name = "se-deep-space-".. name .."-".. color,
+			entity_type = type,
+			technology_name = "se-deep-space-transport-belt",
+			no_percentage_test = is_base_entity,
+		})
+	end
 end
 
 return function(processor_function)

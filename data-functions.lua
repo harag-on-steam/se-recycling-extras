@@ -84,10 +84,10 @@ local function recycling_result(ingredients, no_percentage_test)
 end
 
 function create_recipe(recipe_info)
-    local recipe = data.raw.recipe[recipe_info.recipe_name]
-    local entity = data.raw[recipe_info.entity_type][recipe_info.entity_name or recipe_info.recipe_name]
-    local item = data.raw.item[recipe_info.item_name or recipe_info.recipe_name]
-    local tech = data.raw.technology[recipe_info.technology_name]
+    local recipe = data.raw.recipe[recipe_info.recipe_name] or error("no recipe for "..recipe_info.recipe_name)
+    local entity = data.raw[recipe_info.entity_type][recipe_info.entity_name or recipe_info.recipe_name] or error("no entity for "..recipe_info.recipe_name)
+    local item = data.raw.item[recipe_info.item_name or recipe_info.recipe_name] or error("no item for "..recipe_info.recipe_name)
+    local tech = data.raw.technology[recipe_info.technology_name] or error("no tech for "..recipe_info.recipe_name)
 
     local recycling_recipe = {
         type = "recipe",
@@ -96,7 +96,7 @@ function create_recipe(recipe_info)
         order = recipe_info.order or recipe.order or item.order or entity.order,
         category = "hard-recycling",
         subgroup = recipe_info.subgroup or recipe.subgroup or item.subgroup or "space-recycling",
-        ingredients = {{ name = item.name, amount = 1 }}, -- single ingredient
+        ingredients = {{ name = item.name, amount = recipe.result_count or 1 }}, -- assume single result in original recipe
         results = recycling_result(recipe.ingredients, recipe_info.no_percentage_test),
         enabled = false,
         energy_required = recipe.energy_required or recipe_info.energy_required or 1,
