@@ -84,7 +84,9 @@ local function recycling_result(ingredients, no_percentage_test)
 end
 
 function create_recipe(recipe_info)
-    local recipe = data.raw.recipe[recipe_info.recipe_name] or error("no recipe for "..recipe_info.recipe_name)
+    local recipe = data.raw.recipe[recipe_info.recipe_name]
+    if not recipe then return end -- mods like Deadlock Stacking have settings to disable some entities
+
     local entity = data.raw[recipe_info.entity_type][recipe_info.entity_name or recipe_info.recipe_name] or error("no entity for "..recipe_info.recipe_name)
     local item = data.raw.item[recipe_info.item_name or recipe_info.recipe_name] or error("no item for "..recipe_info.recipe_name)
     local tech = data.raw.technology[recipe_info.technology_name] or error("no tech for "..recipe_info.recipe_name)

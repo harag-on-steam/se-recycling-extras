@@ -14,8 +14,12 @@ local recipes_providers = { -- an array of function(consumer_function(recipe_inf
 
 local function sync_recipe_with_research(recipe_info)
 	for _, force in pairs(game.forces) do
-		if force.technologies[recipe_info.technology_name].researched then
-			force.recipes[recipe_info.recipe_name].enabled = true
+		local tech = force.technologies[recipe_info.technology_name]
+		if tech and tech.researched then
+			local recipe = force.recipes[recipe_info.recipe_name]
+			if recipe then 
+				recipe.enabled = true
+			end
 		end
 	end
 end
