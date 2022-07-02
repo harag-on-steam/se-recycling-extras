@@ -1,6 +1,6 @@
 {
     "name": "se-recycling-extras",
-    "version": "0.3.2",
+    "version": "0.4.0",
     "title": "Space Exploration Recycling Extras",
     "description": "Break down some items into their original components: long space pipes, AAI containers, AFH underground pipes",
     "author": "Harag",
@@ -16,7 +16,8 @@
         "(?) underground-pipe-pack-simplified",
         "? logistic-memory-units",
         "? fluid-memory-storage",
-        "? Krastorio2"
+        "? Krastorio2",
+        "(?) K2_Turrets"
     ],
     "package": {
         "ignore": [".git", ".github", ".vscode", ".kakrc", "*.xcf", "*.kra"]

@@ -18,6 +18,7 @@ if is_mod_active("logistic-memory-units") then
 			recipe_name = name,
 			entity_type = "logistic-container",
 			technology_name = tech_name,
+			to_icon = "memory-unit",
 			no_percentage_test = is_memory_unit,
 		})
 	end
@@ -29,6 +30,7 @@ if is_mod_active("fluid-memory-storage") then
 		entity_type = "container",
 		entity_name = "fluid-memory-unit-container",
 		technology_name = "fluid-memory-storage",
+		to_icon = "memory-unit",
 		no_percentage_test = is_memory_unit,
 	})
 end

@@ -19,8 +19,9 @@ if data.raw.recipe["kr-advanced-radar"] then -- has a startup setting
 		entity_type = "radar",
 		entity_name = "advanced-radar",
 		item_name = "advanced-radar",
-		subgroup = "space-recycling",
+		subgroup = se_recycling_extras.is_se6 and "recycling" or "space-recycling",
 		technology_name = "advanced-radar",
+		to_icon = "radar",
 		no_percentage_test = is_previous_tier,
 	})
 end
@@ -29,8 +30,9 @@ if data.raw.recipe["kr-substation-mk2"] then -- has a startup setting
 	table.insert(recipe_infos, {
 		recipe_name = "kr-substation-mk2",
 		entity_type = "electric-pole",
-		subgroup = "space-recycling",
+		subgroup = se_recycling_extras.is_se6 and "recycling" or "space-recycling",
 		technology_name = "electric-energy-distribution-3",
+		to_icon = "substation",
 		no_percentage_test = is_previous_tier,
 	})
 end

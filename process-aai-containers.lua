@@ -34,6 +34,7 @@ for size, name in pairs(sizes) do
 			recipe_name = logistic_name,
 			entity_type = "logistic-container",
 			technology_name = base_name .. "-" .. tech_suffix,
+			to_icon = base_name,
 			no_percentage_test = function(type, name) return type == "item" and name == base_name end,
 		}
 		table.insert(recipe_infos, recipe_info)

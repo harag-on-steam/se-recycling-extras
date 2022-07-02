@@ -23,6 +23,7 @@ for _, color in pairs(belt_colors) do
 		recipe_name = "se-deep-space-transport-belt-loader-".. color,
 		entity_type = "loader-1x1",
 		technology_name = "deadlock-stacking-space-deep",
+		to_icon = "se-deep-space-transport-belt-loader-black",
 		no_percentage_test = is_base_entity,
 	})
 end

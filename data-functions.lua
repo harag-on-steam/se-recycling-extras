@@ -1,7 +1,3 @@
-function is_mod_active(mod_name)
-    return mods and mods[mod_name]
-end
-
 local percentage = settings.startup["se-recycling-percentage"].value / 100.0
 local rounding_mode = settings.startup["se-recycling-rounding-mode"].value
 
@@ -31,17 +27,81 @@ end
 
 local apply_percentage = ("up" == rounding_mode and round_up) or ("down" == rounding_mode and round_down) or fractional
 
-local function copy_icon(source, target)
+local function shift(icon_source, x, y)
+    if not icon_source.shift then
+        return {x, y}
+    end
+
+    local idx, ox, oy
+    idx, ox = next(icon_source.shift)
+    idx, oy = next(icon_source.shift, idx)
+
+    return {ox + x, oy + y}
+end
+
+local function shift_bottom_left(icon_source)
+    return shift(icon_source, -8,  8)
+end
+
+local function shift_top_right(icon_source)
+    return shift(icon_source,  8, -8)
+end
+
+local function scale_third(icon_source, item)
+    -- return (icon_source.scale or 1) * 0.33 * 64 / (icon_source.icon_size or item.icon_size)
+    return 0.33 * 64 / (icon_source.icon_size or item.icon_size)
+end
+
+local function transition_icons(icon_from, icon_to)
+    local icons = {
+        { icon = "__space-exploration-graphics__/graphics/blank.png", scale = 0.5, shift = { 0, 0 }, icon_size = 64 }, -- to lock scale
+    }
+
+    if icon_from.icon then
+        table.insert(icons, { icon = icon_from.icon, scale = scale_third(icon_from), shift = shift_top_right(icon_from), icon_size = icon_from.icon_size })
+    end
+
+    if icon_from.icons then
+        for _, icon in pairs(icon_from.icons) do
+            if string.match(icon.icon, "/number/") then -- keep the size-number from SE items in the top-left
+                table.insert(icons, util.table.deepcopy(icon))
+            else
+                table.insert(icons, { icon = icon.icon, scale = scale_third(icon, icon_from), shift = shift_top_right(icon), icon_size = (icon.icon_size or icon_from.icon_size), tint = icon.tint })
+            end
+        end
+    end
+
+    if icon_to.icon then
+        table.insert(icons, { icon = icon_to.icon, scale = scale_third(icon_to), shift = shift_bottom_left(icon_to), icon_size = icon_to.icon_size })
+    end
+
+    if icon_to.icons then
+        for _, icon in pairs(icon_to.icons) do
+            if not string.match(icon.icon, "/number/") then -- SE size-number already copied from source item
+                table.insert(icons, { icon = icon.icon, scale = scale_third(icon, icon_to), shift = shift_bottom_left(icon), icon_size = (icon.icon_size or icon_to.icon_size), tint = icon.tint })
+            end
+        end
+    end
+
+    table.insert(icons, { icon = "__space-exploration-graphics__/graphics/icons/transition-arrow.png", scale = 0.5, shift = { 0, 0 }, icon_size = 64 })
+    return icons
+end
+
+local function copy_icon(source, target, recipe_info)
     if not source or (not source.icon and not source.icons) then
         return false
     end
 
-    target.icon = source.icon
-    target.icons = source.icons
-    target.icon_size = source.icon_size
-    target.icon_mipmaps = source.icon_mipmaps
+    local result_item = (recipe_info.to_icon and data.raw.item[recipe_info.to_icon]) or data.raw.item["se-scrap"]
+
+    target.icons = transition_icons(source, result_item)
 
     return true
+
+    -- target.icon = source.icon
+    -- target.icons = source.icons
+    -- target.icon_size = source.icon_size
+    -- target.icon_mipmaps = source.icon_mipmaps
 end
 
 local function recycling_result(ingredients, no_percentage_test)
@@ -115,7 +175,9 @@ function create_recipe(recipe_info)
         unlock_results = false,
     }
 
-    local _ = copy_icon(recipe_info, recycling_recipe) or copy_icon(recipe, recycling_recipe) or copy_icon(item, recycling_recipe)
+    local _ = copy_icon(recipe_info, recycling_recipe, recipe_info) or
+        copy_icon(recipe, recycling_recipe, recipe_info) or
+        copy_icon(item, recycling_recipe, recipe_info)
 
     data:extend({ recycling_recipe })
 

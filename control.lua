@@ -1,6 +1,4 @@
-function is_mod_active(mod_name)
-	return game and game.active_mods[mod_name] -- mod not enabled, do nothing
-end
+require("globals")
 
 local recipes_providers = { -- an array of function(consumer_function(recipe_info))
 	require("process-logistic-chests"),

@@ -17,6 +17,7 @@ for name, tech_name in pairs(logistic_variants) do
 		recipe_name = "logistic-chest-" .. name,
 		entity_type = "logistic-container",
 		technology_name = tech_name,
+		to_icon = "steel-chest",
 		no_percentage_test = is_steel_chest,
 	})
 end

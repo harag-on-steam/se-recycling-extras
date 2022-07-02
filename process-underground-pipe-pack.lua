@@ -14,11 +14,13 @@ local variants = {
     "underground-cross",
 }
 
+local is_simplified = is_mod_active("underground-pipe-pack-simplified") and true
+
 local tiers = {
-	{ suffix = "",       tech = "advanced-underground-piping"       },
-    { suffix = "-t2",    tech = "advanced-underground-piping-t2"    },
-    { suffix = "-t3",    tech = "advanced-underground-piping-t3"    },
-	{ suffix = "-space", tech = "advanced-underground-piping-space" },
+	{ suffix = "",       tech = "advanced-underground-piping",       result = is_simplified and "pipe"          or "underground-pipe-segment-t1"    },
+    { suffix = "-t2",    tech = "advanced-underground-piping-t2",    result = is_simplified and "pipe"          or "underground-pipe-segment-t2"    },
+    { suffix = "-t3",    tech = "advanced-underground-piping-t3",    result = is_simplified and "pipe"          or "underground-pipe-segment-t3"    },
+	{ suffix = "-space", tech = "advanced-underground-piping-space", result = is_simplified and "se-space-pipe" or "underground-pipe-segment-space" },
 }
 
 local pipe_component_set = {
@@ -49,6 +51,7 @@ for _, tier_data in pairs(tiers) do
 			recipe_name = name,
 			entity_type = "pipe-to-ground",
 			technology_name = tier_data.tech,
+			to_icon = tier_data.result,
 			no_percentage_test = is_pipe_component,
 		})
     end
@@ -58,6 +61,7 @@ table.insert(recipe_infos, {
 	recipe_name = "4-to-4-pipe",
 	entity_type = "pipe",
 	technology_name = "advanced-underground-piping",
+	to_icon = is_simplified and "pipe" or "underground-pipe-segment-t1",
 	no_percentage_test = is_pipe_component,
 })
 
