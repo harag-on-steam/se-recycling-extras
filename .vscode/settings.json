@@ -1,0 +1,9 @@
+{
+    "Lua.diagnostics.globals": [
+        "mods",
+        "game",
+        "settings",
+        "data",
+        "util"
+    ]
+}
