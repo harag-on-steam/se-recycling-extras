@@ -18,14 +18,16 @@ local function is_base_entity(type, name)
 	return type == "item" and name == "se-deep-space-transport-belt-loader-black" and true
 end
 
-for _, color in pairs(belt_colors) do
-	table.insert(recipe_infos, {
-		recipe_name = "se-deep-space-transport-belt-loader-".. color,
-		entity_type = "loader-1x1",
-		technology_name = "se-deep-space-transport-belt",
-		to_icon = "se-deep-space-transport-belt-loader-black",
-		no_percentage_test = is_base_entity,
-	})
+if settings.startup["deadlock-enable-loaders"].value then
+	for _, color in pairs(belt_colors) do
+		table.insert(recipe_infos, {
+			recipe_name = "se-deep-space-transport-belt-loader-".. color,
+			entity_type = "loader-1x1",
+			technology_name = "se-deep-space-transport-belt",
+			to_icon = "se-deep-space-transport-belt-loader-black",
+			no_percentage_test = is_base_entity,
+		})
+	end
 end
 
 return function(processor_function)
